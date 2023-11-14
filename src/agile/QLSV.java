@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class QLSV {
     ArrayList<SinhVien> listSinhVien = new ArrayList<>();
     public QLSV(){
-        listSinhVien.add(new SinhVien("HS01","Lê Trung Hiếu","Nam",2004,"Hà Nội",9,9,10));
+        listSinhVien.add(new SinhVien("HS01","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10));
          listSinhVien.add(new SinhVien("HS02","Ngô Tuấn Linh","Nam",2003,"Nam Định",1,2,3));
-          listSinhVien.add(new SinhVien("HS03","Nguyễn Quốc Trí","Nam",2004,"Hà Nội",4,5,6));
+          listSinhVien.add(new SinhVien("HS03","Nguyễn Quốc Trí","Nữ",2004,"Hà Nội",4,5,6));
     }
     ArrayList<SinhVien> getListSinhVien(){
         return listSinhVien;

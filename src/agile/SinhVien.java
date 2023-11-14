@@ -14,14 +14,14 @@ public class SinhVien {
     private String gioiTinh;
     private int namSinh;
     private String queQuan;
-    private float diemToan;
-    private float diemVan;
-    private float diemAnh;
+    private double diemToan;
+    private double diemVan;
+    private double diemAnh;
 
     public SinhVien() {
     }
 
-    public SinhVien(String maHS, String tenHS, String gioiTinh, int namSinh, String queQuan, float diemToan, float diemVan, float diemAnh) {
+    public SinhVien(String maHS, String tenHS, String gioiTinh, int namSinh, String queQuan, double diemToan, double diemVan, double diemAnh) {
         this.maHS = maHS;
         this.tenHS = tenHS;
         this.gioiTinh = gioiTinh;
@@ -72,31 +72,33 @@ public class SinhVien {
         this.queQuan = queQuan;
     }
 
-    public float getDiemToan() {
+    public double getDiemToan() {
         return diemToan;
     }
 
-    public void setDiemToan(float diemToan) {
+    public void setDiemToan(double diemToan) {
         this.diemToan = diemToan;
     }
 
-    public float getDiemVan() {
+    public double getDiemVan() {
         return diemVan;
     }
 
-    public void setDiemVan(float diemVan) {
+    public void setDiemVan(double diemVan) {
         this.diemVan = diemVan;
     }
 
-    public float getDiemAnh() {
+    public double getDiemAnh() {
         return diemAnh;
     }
 
-    public void setDiemAnh(float diemAnh) {
+    public void setDiemAnh(double diemAnh) {
         this.diemAnh = diemAnh;
     }
-    public Float total(){
-        Float total ;
+
+   
+    public Double total(){
+        double total ;
         total = diemToan + diemVan + diemAnh;
         return total;
     }
