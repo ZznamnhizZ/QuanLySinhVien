@@ -13,13 +13,29 @@ import java.util.ArrayList;
 public class QLSV {
     ArrayList<SinhVien> listSinhVien = new ArrayList<>();
     public QLSV(){
-        listSinhVien.add(new SinhVien("HS01","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10));
-         listSinhVien.add(new SinhVien("HS02","Ngô Tuấn Linh","Nam",2003,"Nam Định",1,2,3));
-          listSinhVien.add(new SinhVien("HS03","Nguyễn Quốc Trí","Nữ",2004,"Hà Nội",4,5,6));
+        listSinhVien.add(new SinhVien("SV1","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10));
+        listSinhVien.add(new SinhVien("SV4","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10));
+        listSinhVien.add(new SinhVien("SV5","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10));
+        listSinhVien.add(new SinhVien("SV2", "Ngô Tuấn Linh", "Nam", 2003, "Nam Định", 1, 2, 3));
+        listSinhVien.add(new SinhVien("SV3","Nguyễn Quốc Trí","Nữ",2004,"Hà Nội",4,5,6));
     }
+    
     ArrayList<SinhVien> getListSinhVien(){
         return listSinhVien;
     }
+    
+    Boolean AddNew(SinhVien sv){
+//        SinhVien sv =  new SinhVien();
+        listSinhVien.add(sv);
+        return true;
+    }
+    
+    Boolean delete(int i){
+        listSinhVien.remove(i);
+        return true;
+    }
+    
+    
     Boolean update(int viTri, SinhVien sinhVienNew){
         listSinhVien.set(viTri, sinhVienNew);
         return true;

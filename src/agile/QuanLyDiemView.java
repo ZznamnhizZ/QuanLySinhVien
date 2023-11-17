@@ -89,8 +89,10 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     void loadData(ArrayList<SinhVien> list) {
         defaultTableModel = (DefaultTableModel) tblSinhVien.getModel();
         defaultTableModel.setRowCount(0);
+        int stt = 1;
         for (SinhVien sinhVien : list) {
             defaultTableModel.addRow(new Object[]{
+                stt,
                 sinhVien.getMaHS(),
                 sinhVien.getTenHS(),
                 sinhVien.getGioiTinh(),
@@ -101,6 +103,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 sinhVien.getDiemVan(),
                 sinhVien.total()
             });
+            stt++;
         }
     }
 
@@ -176,7 +179,6 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         jLabel8.setText("Điểm toán:");
 
         txtMa.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtMa.setMinimumSize(new java.awt.Dimension(68, 28));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Điểm văn:");
@@ -241,11 +243,31 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     btnThem.setForeground(new java.awt.Color(237, 237, 237));
     btnThem.setText("Add");
+    btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            btnThemMouseClicked(evt);
+        }
+    });
+    btnThem.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnThemActionPerformed(evt);
+        }
+    });
 
     btnXoa.setBackground(new java.awt.Color(0, 51, 102));
     btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     btnXoa.setForeground(new java.awt.Color(237, 237, 237));
     btnXoa.setText("Delete");
+    btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            btnXoaMouseClicked(evt);
+        }
+    });
+    btnXoa.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnXoaActionPerformed(evt);
+        }
+    });
 
     btnSua.setBackground(new java.awt.Color(0, 51, 102));
     btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -347,13 +369,13 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     tblSinhVien.setFont(new java.awt.Font("Montserrat", 2, 12)); // NOI18N
     tblSinhVien.setModel(new javax.swing.table.DefaultTableModel(
         new Object [][] {
-            {null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null}
+            {null, null, null, null, null, null, null, null, null, null},
+            {null, null, null, null, null, null, null, null, null, null},
+            {null, null, null, null, null, null, null, null, null, null},
+            {null, null, null, null, null, null, null, null, null, null}
         },
         new String [] {
-            "Mã hs", "Tên hs", "Giới tính", "Năm sinh", "Quê quán", "Điểm toán", "Điểm anh", "Điểm văn", "Avg"
+            "STT", "Mã hs", "Tên hs", "Giới tính", "Năm sinh", "Quê quán", "Điểm toán", "Điểm anh", "Điểm văn", "Avg"
         }
     ));
     tblSinhVien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -363,8 +385,8 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     });
     jScrollPane1.setViewportView(tblSinhVien);
     if (tblSinhVien.getColumnModel().getColumnCount() > 0) {
-        tblSinhVien.getColumnModel().getColumn(1).setPreferredWidth(160);
-        tblSinhVien.getColumnModel().getColumn(4).setPreferredWidth(90);
+        tblSinhVien.getColumnModel().getColumn(2).setPreferredWidth(160);
+        tblSinhVien.getColumnModel().getColumn(5).setPreferredWidth(90);
     }
 
     jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -382,8 +404,8 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jDesktopPane1Layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     jDesktopPane1.setBorder(new RoundedCornerBorder(7));
@@ -459,7 +481,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
             .addComponent(jDesktopPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -510,7 +532,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(8, 8, 8)))
             .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(20, 20, 20))
+            .addGap(11, 11, 11))
     );
 
     // Đặt viền cho JTextField
@@ -525,25 +547,25 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     private void tblSinhVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSinhVienMouseClicked
         // TODO add your handling code here:
         int i = tblSinhVien.getSelectedRow();
-        String ma = (String) tblSinhVien.getValueAt(i, 0);
+        String ma = (String) tblSinhVien.getValueAt(i, 1);
         txtMa.setText(ma);
-        String ten = (String) tblSinhVien.getValueAt(i, 1);
+        String ten = (String) tblSinhVien.getValueAt(i, 2);
         txtTen.setText(ten);
-        String gioiTinh = (String) tblSinhVien.getValueAt(i, 2);
+        String gioiTinh = (String) tblSinhVien.getValueAt(i, 3);
         if (gioiTinh.equals("Nam")) {
             rdNam.setSelected(true);
         } else {
             rdNu.setSelected(true);
         }
-        Integer namSinh = (Integer) tblSinhVien.getValueAt(i, 3);
+        Integer namSinh = (Integer) tblSinhVien.getValueAt(i, 4);
         cboNamSinh.setSelectedItem(namSinh.toString());
-        String queQuan = (String) tblSinhVien.getValueAt(i, 4);
+        String queQuan = (String) tblSinhVien.getValueAt(i, 5);
         txtQueQuan.setText(queQuan);
-        Double diemToan = (Double) tblSinhVien.getValueAt(i, 5);
+        Double diemToan = (Double) tblSinhVien.getValueAt(i, 6);
         txtDiemToan.setText(diemToan.toString());
-        Double diemAnh = (Double) tblSinhVien.getValueAt(i, 6);
+        Double diemAnh = (Double) tblSinhVien.getValueAt(i, 7);
         txtDiemAnh.setText(diemAnh.toString());
-        Double diemVan = (Double) tblSinhVien.getValueAt(i, 7);
+        Double diemVan = (Double) tblSinhVien.getValueAt(i, 8);
         txtDiemVan.setText(diemVan.toString());
     }//GEN-LAST:event_tblSinhVienMouseClicked
 
@@ -598,12 +620,12 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 String ten = sinhVien.getTenHS();
                 txtTen.setText(ten);
                 String gioiTinh = sinhVien.getGioiTinh();
-                 if (gioiTinh.equals("Nam")) {
-                rdNam.setSelected(true);
-            } else {
-                rdNu.setSelected(true);
-            }
-                
+                if (gioiTinh.equals("Nam")) {
+                    rdNam.setSelected(true);
+                } else {
+                    rdNu.setSelected(true);
+                }
+
                 Integer namSinh = sinhVien.getNamSinh();
                 cboNamSinh.setSelectedItem(namSinh);
                 String queQuan = sinhVien.getQueQuan();
@@ -619,6 +641,94 @@ public class QuanLyDiemView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không tìm thấy nhân viên");
         }
     }//GEN-LAST:event_btnTimKiemMouseClicked
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
+        // TODO add your handling code here:
+        String m = txtMa.getText();
+        String ten = txtTen.getText();
+        String gioitinh = " ";
+
+        int namsinh = Integer.parseInt(cboNamSinh.getSelectedItem().toString());
+        String quequan = txtQueQuan.getText();
+        Double toan, van, anh;
+        if (rdNam.isSelected()) {
+            gioitinh = "Nam";
+        } else if (rdNu.isSelected()) {
+            gioitinh = "Nữ";
+        }
+
+        String password = JOptionPane.showInputDialog(this, "Nhập password:");
+        if (password.equals("admin01")) {
+
+            try {
+                toan = Double.parseDouble(txtDiemToan.getText());
+                van = Double.parseDouble(txtDiemVan.getText());
+                anh = Double.parseDouble(txtDiemAnh.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập điểm đúng đinh dạng");
+                return;
+            }
+            if (m.isEmpty() || ten.isEmpty() || quequan.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn cần nhập đầy đủ thông tin");
+                return;
+            }else if(toan > 10 || van > 10 || anh > 10){
+                JOptionPane.showMessageDialog(this, "Điểm cần phải < = 10");
+                return;
+            }
+            else {
+
+                ArrayList<SinhVien> list = qlsv.getListSinhVien();
+                for (SinhVien sinhVien : list) {
+                    if (sinhVien.getMaHS().equals(m)) {
+                        JOptionPane.showMessageDialog(this, "Mã sinh viên " + m + " đã tồn tại. Vui lòng nhập mã sinh viên mới để thêm sinh viên");
+                        return;
+                    }
+                }
+                SinhVien sv = new SinhVien(m, ten, gioitinh, namsinh, quequan, toan, van, anh);
+                Boolean checkAdd = qlsv.AddNew(sv);
+                int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm sinh viên với mã " + m + " không ?");
+                if (kiemTra == JOptionPane.YES_OPTION) {
+                    if (checkAdd) {
+                        JOptionPane.showMessageDialog(this, "Thêm thành công");
+                        loadData(qlsv.getListSinhVien());
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập!!");
+        }
+
+
+    }//GEN-LAST:event_btnThemMouseClicked
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
+        // TODO add your handling code here:
+        int i = tblSinhVien.getSelectedRow();
+
+        String password = JOptionPane.showInputDialog(this, "Nhập password:");
+        if (password.equals("admin01")) {
+            int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa học sinh với mã " + txtMa.getText() + " không ?");
+            if (kiemTra == JOptionPane.YES_OPTION) {
+                boolean xoa = qlsv.delete(i);
+                if (xoa) {
+                    loadData(qlsv.getListSinhVien());
+                    JOptionPane.showMessageDialog(this, "Xóa thành công học sinh " + txtMa.getText());
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập!!");
+        }
+    }//GEN-LAST:event_btnXoaMouseClicked
 
     /**
      * @param args the command line arguments
