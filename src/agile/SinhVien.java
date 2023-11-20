@@ -17,11 +17,12 @@ public class SinhVien {
     private double diemToan;
     private double diemVan;
     private double diemAnh;
+    private String HinhAnh;
 
     public SinhVien() {
     }
 
-    public SinhVien(String maHS, String tenHS, String gioiTinh, int namSinh, String queQuan, double diemToan, double diemVan, double diemAnh) {
+    public SinhVien(String maHS, String tenHS, String gioiTinh, int namSinh, String queQuan, double diemToan, double diemVan, double diemAnh, String HinhAnh) {
         this.maHS = maHS;
         this.tenHS = tenHS;
         this.gioiTinh = gioiTinh;
@@ -30,6 +31,7 @@ public class SinhVien {
         this.diemToan = diemToan;
         this.diemVan = diemVan;
         this.diemAnh = diemAnh;
+        this.HinhAnh = HinhAnh;
     }
 
     public String getMaHS() {
@@ -96,11 +98,21 @@ public class SinhVien {
         this.diemAnh = diemAnh;
     }
 
-   
-    public Double total(){
-        double total ;
-        total = diemToan + diemVan + diemAnh;
-        return total;
+    public String getHinhAnh() {
+        return HinhAnh;
     }
+
+    public void setHinhAnh(String HinhAnh) {
+        this.HinhAnh = HinhAnh;
+    }
+
+    
+
+    
+    
+    
+
+    
+    
    
 }
