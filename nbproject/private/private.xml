@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/D:/TriXuong/QuanLySinhVien/src/agile/QLSV.java</file>
+            <file>file:/D:/TriXuong/QuanLySinhVien/src/agile/SinhVien.java</file>
+            <file>file:/D:/TriXuong/QuanLySinhVien/src/agile/QuanLyDiemView.java</file>
+        </group>
+>>>>>>> 02ff6b65187f8d92f81c5fa9a5cda2e415e6cdf1
     </open-files>
 </project-private>

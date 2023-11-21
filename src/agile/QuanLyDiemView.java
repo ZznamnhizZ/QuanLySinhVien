@@ -9,12 +9,16 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.geom.RoundRectangle2D;
+import java.io.File;
 import javax.swing.JTextField;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 //// Bo cong góc -----------------------------------------------------------------
 //class RoundBorder implements Border {
@@ -89,8 +93,11 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     void loadData(ArrayList<SinhVien> list) {
         defaultTableModel = (DefaultTableModel) tblSinhVien.getModel();
         defaultTableModel.setRowCount(0);
+        int stt = 1;
+        double total;
         for (SinhVien sinhVien : list) {
             defaultTableModel.addRow(new Object[]{
+                stt,
                 sinhVien.getMaHS(),
                 sinhVien.getTenHS(),
                 sinhVien.getGioiTinh(),
@@ -99,8 +106,12 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 sinhVien.getDiemToan(),
                 sinhVien.getDiemAnh(),
                 sinhVien.getDiemVan(),
-                sinhVien.total()
+                
+                total = (sinhVien.getDiemToan() + sinhVien.getDiemAnh() + sinhVien.getDiemVan()) /3,
+                sinhVien.getHinhAnh(),
+                
             });
+            stt++;
         }
     }
 
@@ -129,7 +140,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         cboNamSinh = new javax.swing.JComboBox<>();
         txtDiemVan = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        btImage = new javax.swing.JButton();
         txtDiemAnh = new javax.swing.JTextField();
         MatteBorder underlineBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);
         txtTen = new javax.swing.JTextField();
@@ -176,7 +187,6 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         jLabel8.setText("Điểm toán:");
 
         txtMa.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtMa.setMinimumSize(new java.awt.Dimension(68, 28));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Điểm văn:");
@@ -198,23 +208,28 @@ public class QuanLyDiemView extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel7.setText("Ảnh");
+        btImage.setFont(new java.awt.Font("Segoe UI", 0, 2)); // NOI18N
+        btImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btImageActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel7)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btImage, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel7)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btImage, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         txtDiemAnh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -241,11 +256,31 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     btnThem.setForeground(new java.awt.Color(237, 237, 237));
     btnThem.setText("Add");
+    btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            btnThemMouseClicked(evt);
+        }
+    });
+    btnThem.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnThemActionPerformed(evt);
+        }
+    });
 
     btnXoa.setBackground(new java.awt.Color(0, 51, 102));
     btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     btnXoa.setForeground(new java.awt.Color(237, 237, 237));
     btnXoa.setText("Delete");
+    btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            btnXoaMouseClicked(evt);
+        }
+    });
+    btnXoa.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnXoaActionPerformed(evt);
+        }
+    });
 
     btnSua.setBackground(new java.awt.Color(0, 51, 102));
     btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -289,9 +324,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 .addComponent(btnGhiFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addComponent(btnDocFile, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(btnDocFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
     );
     jPanel3Layout.setVerticalGroup(
@@ -347,13 +380,13 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     tblSinhVien.setFont(new java.awt.Font("Montserrat", 2, 12)); // NOI18N
     tblSinhVien.setModel(new javax.swing.table.DefaultTableModel(
         new Object [][] {
-            {null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null}
+            {null, null, null, null, null, null, null, null, null, null, null},
+            {null, null, null, null, null, null, null, null, null, null, null},
+            {null, null, null, null, null, null, null, null, null, null, null},
+            {null, null, null, null, null, null, null, null, null, null, null}
         },
         new String [] {
-            "Mã hs", "Tên hs", "Giới tính", "Năm sinh", "Quê quán", "Điểm toán", "Điểm anh", "Điểm văn", "Avg"
+            "STT", "Mã hs", "Tên hs", "Giới tính", "Năm sinh", "Quê quán", "Điểm toán", "Điểm anh", "Điểm văn", "Avg", "Hình ảnh"
         }
     ));
     tblSinhVien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -363,8 +396,8 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     });
     jScrollPane1.setViewportView(tblSinhVien);
     if (tblSinhVien.getColumnModel().getColumnCount() > 0) {
-        tblSinhVien.getColumnModel().getColumn(1).setPreferredWidth(160);
-        tblSinhVien.getColumnModel().getColumn(4).setPreferredWidth(90);
+        tblSinhVien.getColumnModel().getColumn(2).setPreferredWidth(160);
+        tblSinhVien.getColumnModel().getColumn(5).setPreferredWidth(90);
     }
 
     jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -382,8 +415,8 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jDesktopPane1Layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     jDesktopPane1.setBorder(new RoundedCornerBorder(7));
@@ -459,7 +492,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
             .addComponent(jDesktopPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -510,7 +543,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(8, 8, 8)))
             .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(20, 20, 20))
+            .addGap(11, 11, 11))
     );
 
     // Đặt viền cho JTextField
@@ -525,26 +558,52 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     private void tblSinhVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSinhVienMouseClicked
         // TODO add your handling code here:
         int i = tblSinhVien.getSelectedRow();
-        String ma = (String) tblSinhVien.getValueAt(i, 0);
+        String ma = (String) tblSinhVien.getValueAt(i, 1);
         txtMa.setText(ma);
-        String ten = (String) tblSinhVien.getValueAt(i, 1);
+        String ten = (String) tblSinhVien.getValueAt(i, 2);
         txtTen.setText(ten);
-        String gioiTinh = (String) tblSinhVien.getValueAt(i, 2);
+        
+        Integer namSinh = (Integer) tblSinhVien.getValueAt(i, 4);
+        cboNamSinh.setSelectedItem(namSinh.toString());
+        String queQuan = (String) tblSinhVien.getValueAt(i, 5);
+        txtQueQuan.setText(queQuan);
+        Double diemToan = (Double) tblSinhVien.getValueAt(i, 6);
+        txtDiemToan.setText(diemToan.toString());
+        Double diemAnh = (Double) tblSinhVien.getValueAt(i, 7);
+        txtDiemAnh.setText(diemAnh.toString());
+        Double diemVan = (Double) tblSinhVien.getValueAt(i, 8);
+        txtDiemVan.setText(diemVan.toString());
+
+        
+        
+        
+        String tenAnh = (String) tblSinhVien.getValueAt(i, 10);
+        String imagePath = tenAnh;  // Thay bằng đường dẫn thực tế
+
+        // Đọc ảnh từ đường dẫn
+        ImageIcon icon = new ImageIcon(imagePath);
+        Image image = icon.getImage();
+
+        // Lấy kích thước của JButton
+        int width = btImage.getWidth();
+        int height = btImage.getHeight();
+
+        // Điều chỉnh kích thước ảnh để vừa với JButton
+        Image newImage = image.getScaledInstance(97, 125, java.awt.Image.SCALE_SMOOTH);
+
+        // Tạo ImageIcon mới từ ảnh đã điều chỉnh kích thước
+        ImageIcon newIcon = new ImageIcon(newImage);
+
+        // Hiển thị ảnh trên JButton
+        btImage.setIcon(newIcon);
+        btImage.setText("");
+        
+        String gioiTinh = (String) tblSinhVien.getValueAt(i, 3);
         if (gioiTinh.equals("Nam")) {
             rdNam.setSelected(true);
         } else {
             rdNu.setSelected(true);
         }
-        Integer namSinh = (Integer) tblSinhVien.getValueAt(i, 3);
-        cboNamSinh.setSelectedItem(namSinh.toString());
-        String queQuan = (String) tblSinhVien.getValueAt(i, 4);
-        txtQueQuan.setText(queQuan);
-        Double diemToan = (Double) tblSinhVien.getValueAt(i, 5);
-        txtDiemToan.setText(diemToan.toString());
-        Double diemAnh = (Double) tblSinhVien.getValueAt(i, 6);
-        txtDiemAnh.setText(diemAnh.toString());
-        Double diemVan = (Double) tblSinhVien.getValueAt(i, 7);
-        txtDiemVan.setText(diemVan.toString());
     }//GEN-LAST:event_tblSinhVienMouseClicked
 
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
@@ -556,6 +615,8 @@ public class QuanLyDiemView extends javax.swing.JFrame {
             String ma = txtMa.getText();
             String ten = txtTen.getText();
             String gioiTinh = "";
+            String icon = btImage.getText();
+            
             if (rdNam.isSelected()) {
                 gioiTinh = "Nam";
             } else {
@@ -566,7 +627,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
             Float diemToan = Float.parseFloat(txtDiemToan.getText());
             Float diemAnh = Float.parseFloat(txtDiemAnh.getText());
             Float diemVan = Float.parseFloat(txtDiemVan.getText());
-            SinhVien sinhVien = new SinhVien(ma, ten, gioiTinh, namSinh, queQuan, diemToan, diemAnh, diemVan);
+            SinhVien sinhVien = new SinhVien(ma, ten, gioiTinh, namSinh, queQuan, diemToan, diemVan, diemAnh, icon);
             Boolean check = qlsv.update(i, sinhVien);
             int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn sửa không?", " ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (kiemTra == JOptionPane.YES_OPTION) {
@@ -598,12 +659,12 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 String ten = sinhVien.getTenHS();
                 txtTen.setText(ten);
                 String gioiTinh = sinhVien.getGioiTinh();
-                 if (gioiTinh.equals("Nam")) {
-                rdNam.setSelected(true);
-            } else {
-                rdNu.setSelected(true);
-            }
-                
+                if (gioiTinh.equals("Nam")) {
+                    rdNam.setSelected(true);
+                } else {
+                    rdNu.setSelected(true);
+                }
+
                 Integer namSinh = sinhVien.getNamSinh();
                 cboNamSinh.setSelectedItem(namSinh);
                 String queQuan = sinhVien.getQueQuan();
@@ -619,6 +680,123 @@ public class QuanLyDiemView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không tìm thấy nhân viên");
         }
     }//GEN-LAST:event_btnTimKiemMouseClicked
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
+        // TODO add your handling code here:
+        String m = txtMa.getText();
+        String ten = txtTen.getText();
+        String gioitinh = " ";
+        String icon = btImage.getText();
+
+        int namsinh = Integer.parseInt(cboNamSinh.getSelectedItem().toString());
+        String quequan = txtQueQuan.getText();
+        Double toan, van, anh;
+        if (rdNam.isSelected()) {
+            gioitinh = "Nam";
+        } else if (rdNu.isSelected()) {
+            gioitinh = "Nữ";
+        }
+
+        String password = JOptionPane.showInputDialog(this, "Nhập password:");
+        if (password.equals("admin01")) {
+
+            try {
+                toan = Double.parseDouble(txtDiemToan.getText());
+                van = Double.parseDouble(txtDiemVan.getText());
+                anh = Double.parseDouble(txtDiemAnh.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập điểm đúng đinh dạng");
+                return;
+            }
+            if (m.isEmpty() || ten.isEmpty() || quequan.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn cần nhập đầy đủ thông tin");
+                return;
+            } else if (toan > 10 || van > 10 || anh > 10) {
+                JOptionPane.showMessageDialog(this, "Điểm cần phải < = 10");
+                return;
+            } else {
+
+                ArrayList<SinhVien> list = qlsv.getListSinhVien();
+                for (SinhVien sinhVien : list) {
+                    if (sinhVien.getMaHS().equals(m)) {
+                        JOptionPane.showMessageDialog(this, "Mã sinh viên " + m + " đã tồn tại. Vui lòng nhập mã sinh viên mới để thêm sinh viên");
+                        return;
+                    }
+                }
+                SinhVien sv = new SinhVien(m, ten, gioitinh, namsinh, quequan, toan, van, anh,icon);
+                Boolean checkAdd = qlsv.AddNew(sv);
+                int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm sinh viên với mã " + m + " không ?");
+                if (kiemTra == JOptionPane.YES_OPTION) {
+                    if (checkAdd) {
+                        JOptionPane.showMessageDialog(this, "Thêm thành công");
+                        loadData(qlsv.getListSinhVien());
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập!!");
+        }
+
+
+    }//GEN-LAST:event_btnThemMouseClicked
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
+        // TODO add your handling code here:
+        int i = tblSinhVien.getSelectedRow();
+
+        String password = JOptionPane.showInputDialog(this, "Nhập password:");
+        if (password.equals("admin01")) {
+            int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa học sinh với mã " + txtMa.getText() + " không ?");
+            if (kiemTra == JOptionPane.YES_OPTION) {
+                boolean xoa = qlsv.delete(i);
+                if (xoa) {
+                    loadData(qlsv.getListSinhVien());
+                    JOptionPane.showMessageDialog(this, "Xóa thành công học sinh " + txtMa.getText());
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập!!");
+        }
+    }//GEN-LAST:event_btnXoaMouseClicked
+
+    private void btImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImageActionPerformed
+        // TODO add your handling code here:
+        JFileChooser dlg = new JFileChooser();
+        dlg.showOpenDialog(this);
+
+        File selectedFile = dlg.getSelectedFile();
+//        if (selectedFile != null) {
+//            String tenAnh = selectedFile.getName(); // Lấy tên file ảnh
+//
+//            ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
+//            Image newImage = icon.getImage().getScaledInstance(97, 125, Image.SCALE_SMOOTH);
+//            ImageIcon newIcon = new ImageIcon(newImage);
+//
+//            btImage.setIcon(newIcon);
+//            btImage.setText(tenAnh); // Set text thành tên file ảnh
+//        } else {
+//            // Người dùng đã cancel hoặc không chọn file, xử lý tùy theo yêu cầu của bạn
+//        }
+
+        String path = selectedFile.getAbsolutePath();
+
+        ImageIcon icon = new ImageIcon(path);
+        Image newImage = icon.getImage().getScaledInstance(97, 125, Image.SCALE_SMOOTH);
+        ImageIcon newIcon = new ImageIcon(newImage);
+
+        btImage.setIcon(newIcon);
+        btImage.setText(path); // Set text thành đường dẫn
+    }//GEN-LAST:event_btImageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -657,6 +835,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btImage;
     private javax.swing.JButton btnDocFile;
     private javax.swing.JButton btnGhiFile;
     private javax.swing.JButton btnSua;
@@ -679,7 +858,6 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
