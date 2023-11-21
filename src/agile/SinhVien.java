@@ -4,11 +4,13 @@
  */
 package agile;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Dell
  */
-public class SinhVien {
+public class SinhVien implements Serializable{
     private String maHS;
     private String tenHS;
     private String gioiTinh;
