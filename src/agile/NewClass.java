@@ -12,5 +12,6 @@ public class NewClass {
     public static void main(String[] args) {
         System.out.println("Tri");
         System.out.println("tri");
+        System.out.println("tri");
     }
 }
