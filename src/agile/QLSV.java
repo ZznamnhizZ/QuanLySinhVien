@@ -14,13 +14,14 @@ import java.util.ArrayList;
  * @author Dell
  */
 public class QLSV {
+     ArrayList<SinhVien> getListDocFile = new ArrayList<>();
     ArrayList<SinhVien> listSinhVien = new ArrayList<>();
     public QLSV(){
-        listSinhVien.add(new SinhVien("SV1","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10,""));
-        listSinhVien.add(new SinhVien("SV4","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10,""));
-        listSinhVien.add(new SinhVien("SV5","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10,""));
-        listSinhVien.add(new SinhVien("SV2", "Ngô Tuấn Linh", "Nam", 2003, "Nam Định", 1, 2, 3,""));
-        listSinhVien.add(new SinhVien("SV3","Nguyễn Quốc Trí","Nữ",2004,"Hà Nội",4,5,6,""));
+//        listSinhVien.add(new SinhVien("SV1","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10,""));
+//        listSinhVien.add(new SinhVien("SV4","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10,""));
+//        listSinhVien.add(new SinhVien("SV5","Lê Trung Hiếu","Nam",2004,"Hà Nội",9.2,9,10,""));
+//        listSinhVien.add(new SinhVien("SV2", "Ngô Tuấn Linh", "Nam", 2003, "Nam Định", 1, 2, 3,""));
+//        listSinhVien.add(new SinhVien("SV3","Nguyễn Quốc Trí","Nữ",2004,"Hà Nội",4,5,6,""));
     }
     
     ArrayList<SinhVien> getListSinhVien(){
@@ -57,6 +58,7 @@ public class QLSV {
     }
     
     
+    
     // Phương thức saveToFile trong lớp QLSV
     private void saveToFile() {
     try {
@@ -68,5 +70,7 @@ public class QLSV {
     } catch (IOException e) {
         e.printStackTrace();
     }
-}
+    }
+    
+    
 }

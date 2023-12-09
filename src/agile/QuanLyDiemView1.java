@@ -471,18 +471,6 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         dlg.showOpenDialog(this);
 
         File selectedFile = dlg.getSelectedFile();
-//        if (selectedFile != null) {
-//            String tenAnh = selectedFile.getName(); // Lấy tên file ảnh
-//
-//            ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
-//            Image newImage = icon.getImage().getScaledInstance(97, 125, Image.SCALE_SMOOTH);
-//            ImageIcon newIcon = new ImageIcon(newImage);
-//
-//            btImage.setIcon(newIcon);
-//            btImage.setText(tenAnh); // Set text thành tên file ảnh
-//        } else {
-//            // Người dùng đã cancel hoặc không chọn file, xử lý tùy theo yêu cầu của bạn
-//        }
 
         String path = selectedFile.getAbsolutePath();
 
@@ -517,7 +505,7 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         }
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
-        ArrayList<SinhVien> list = new ArrayList<>();
+        ArrayList<SinhVien> list = qlsv.getListSinhVien();
         while (fis.available() > 0) {
             list.add((SinhVien) ois.readObject());
         }

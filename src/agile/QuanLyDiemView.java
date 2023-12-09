@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.geom.RoundRectangle2D;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,6 +30,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 //// Bo cong góc -----------------------------------------------------------------
 //class RoundBorder implements Border {
@@ -99,6 +101,16 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         ArrayList<SinhVien> list = qlsv.getListSinhVien();
         lblDong.setText(LayThongTinTable(0, list.size()));
         loadData(list);
+        
+        
+        try {
+            // TODO add your handling code here:
+            docFile();
+        } catch (IOException ex) {
+            Logger.getLogger(QuanLyDiemView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(QuanLyDiemView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String LayThongTinTable(int viTriBanDau, int TongSoBanGhi) {
@@ -176,53 +188,39 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Tên học sinh:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Giới tính:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Năm sinh");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Quê quán:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("Điểm toán:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, 30));
-        getContentPane().add(txtMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 126, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Điểm văn:");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, -1, 30));
 
         buttonGroup1.add(rdNam);
         rdNam.setText("Nam");
-        getContentPane().add(rdNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("Điểm anh:");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, 30));
 
         buttonGroup1.add(rdNu);
         rdNu.setText("Nữ");
-        getContentPane().add(rdNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, -1, -1));
-        getContentPane().add(txtDiemToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 45, 30));
 
         cboNamSinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023" }));
-        getContentPane().add(cboNamSinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 126, -1));
-        getContentPane().add(txtDiemVan, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 45, 30));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -240,21 +238,16 @@ public class QuanLyDiemView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btImage, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btImage, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btImage, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btImage, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
-        getContentPane().add(txtDiemAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 45, 30));
-        getContentPane().add(txtTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 126, -1));
-        getContentPane().add(txtQueQuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 126, -1));
 
         tblSinhVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,8 +267,6 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblSinhVien);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 690, 214));
-
         btDau.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btDau.setText("|<");
         btDau.addActionListener(new java.awt.event.ActionListener() {
@@ -283,7 +274,6 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 btDauActionPerformed(evt);
             }
         });
-        getContentPane().add(btDau, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 50, 30));
 
         btPrev.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btPrev.setText("<<");
@@ -292,7 +282,6 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 btPrevActionPerformed(evt);
             }
         });
-        getContentPane().add(btPrev, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 60, 30));
 
         btNext.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btNext.setText(">>");
@@ -301,7 +290,6 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 btNextActionPerformed(evt);
             }
         });
-        getContentPane().add(btNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 60, 30));
 
         btLast.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btLast.setText(">|");
@@ -310,7 +298,6 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 btLastActionPerformed(evt);
             }
         });
-        getContentPane().add(btLast, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 50, 30));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -370,6 +357,11 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         btnGhiFile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGhiFileMouseClicked(evt);
+            }
+        });
+        btnGhiFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGhiFileActionPerformed(evt);
             }
         });
 
@@ -450,15 +442,11 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, -1, -1));
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Mã học sinh:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         lblDong.setText("1 or 10");
-        getContentPane().add(lblDong, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, -1, -1));
 
         kGradientPanel1.setkEndColor(new java.awt.Color(0, 153, 51));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 0, 153));
@@ -474,7 +462,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -484,7 +472,138 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 0, 710, 40));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(8, 8, 8)
+                                .addComponent(txtDiemToan, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel9)
+                                .addGap(4, 4, 4)
+                                .addComponent(txtDiemVan, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(20, 20, 20)
+                                        .addComponent(txtMa, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(16, 16, 16)
+                                        .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(rdNam)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(rdNu))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(36, 36, 36)
+                                        .addComponent(cboNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(33, 33, 33)
+                                        .addComponent(txtQueQuan, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblDong)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(3, 3, 3)
+                                        .addComponent(txtDiemAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(btDau, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(btNext, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btLast, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel2))
+                                    .addComponent(txtMa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14, 14, 14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14, 14, 14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(rdNam)
+                                    .addComponent(rdNu))
+                                .addGap(19, 19, 19)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(cboNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14, 14, 14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtQueQuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(74, 74, 74)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDiemToan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDiemVan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btDau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btNext, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btLast, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDong)
+                                .addGap(49, 49, 49)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDiemAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -627,6 +746,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(this, "Không tìm thấy học sinh");
+            loadData(qlsv.getListSinhVien());
         }
     }//GEN-LAST:event_btnTimKiemMouseClicked
 
@@ -675,16 +795,22 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                         return;
                     }
                 }
-                SinhVien sv = new SinhVien(m, ten, gioitinh, namsinh, quequan, toan, van, anh, icon);
-                Boolean checkAdd = qlsv.AddNew(sv);
+               
                 int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm sinh viên với mã " + m + " không ?");
                 if (kiemTra == JOptionPane.YES_OPTION) {
+                    SinhVien sv = new SinhVien(m, ten, gioitinh, namsinh, quequan, toan, van, anh, icon);
+                    Boolean checkAdd = qlsv.AddNew(sv);
                     if (checkAdd) {
                         JOptionPane.showMessageDialog(this, "Thêm thành công");
                         loadData(qlsv.getListSinhVien());
                     }
+                }else{
+                    return;
                 }
             }
+
+
+
         
 
 
@@ -760,14 +886,32 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         fos.close();
 
     }
+    
+
+    
+//    void ghiFile(File file) throws IOException {
+//    try (FileOutputStream fos = new FileOutputStream(file);
+//         ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+//
+//        ArrayList<SinhVien> list = qlsv.getListSinhVien();
+//        for (SinhVien sinhVien : list) {
+//            oos.writeObject(sinhVien);
+//        }
+//
+//    } catch (IOException ex) {
+//        // Handle the exception or log it
+//        ex.printStackTrace();
+//        throw ex; // Rethrow the exception if needed
+//    }
+//}
     private void btnGhiFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGhiFileMouseClicked
-        String password = JOptionPane.showInputDialog("Vui lòng nhập mật khẩu");
-        if (password.equals("admin01")) {
+
             int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn ghi file không?", " ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (kiemTra == JOptionPane.YES_OPTION) {
                 try {
                     // TODO add your handling code here:
                     ghiFile();
+                    JOptionPane.showMessageDialog(this, "Ghi File thành công");
                 } catch (IOException ex) {
                     Logger.getLogger(QuanLyDiemView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -776,12 +920,49 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 return;
             }
 
-        } else {
-            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập!");
-        }
+
+        
+    
+
+//    int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn ghi file không?", " ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+//
+//    if (kiemTra == JOptionPane.YES_OPTION) {
+//        JFileChooser fileChooser = new JFileChooser();
+//        fileChooser.setDialogTitle("Chọn vị trí và nhập tên tệp");
+//        FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt");
+//        fileChooser.setFileFilter(filter);
+//
+//        int userSelection = fileChooser.showSaveDialog(null);
+//
+//        if (userSelection == JFileChooser.APPROVE_OPTION) {
+//            File fileToSave = fileChooser.getSelectedFile();
+//
+//            try {
+//                if (fileToSave.createNewFile()) {
+//                    System.out.println("Tệp đã được tạo thành công.");
+//                    try {
+//                        ghiFile(fileToSave);
+//                        JOptionPane.showMessageDialog(this, "Ghi File thành công");
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(QuanLyDiemView.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//            } catch (IOException e) {
+//                System.out.println("Đã xảy ra lỗi khi tạo tệp: " + e.getMessage());
+//            }
+//        } else if (userSelection == JFileChooser.CANCEL_OPTION) {
+//            System.out.println("Hủy tạo tệp.");
+//        }
+//    } else {
+//        return;
+//    }
+
+        
 
     }//GEN-LAST:event_btnGhiFileMouseClicked
     void docFile() throws FileNotFoundException, IOException, ClassNotFoundException {
+        DefaultTableModel model = (DefaultTableModel) tblSinhVien.getModel();
+        model.setRowCount(0);
         File file = new File("agile.txt");
         if (!file.exists()) {
             System.out.println("Khong tim thay file");
@@ -790,17 +971,23 @@ public class QuanLyDiemView extends javax.swing.JFrame {
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
         ArrayList<SinhVien> list = new ArrayList<>();
+//        ArrayList<SinhVien> list = qlsv.getListSinhVien();
         while (fis.available() > 0) {
             list.add((SinhVien) ois.readObject());
         }
         ois.close();
         fis.close();
+        
+        qlsv.getListSinhVien().clear();
+        qlsv.getListSinhVien().addAll(list);
         loadData(list);
 
     }
+    
+    
+    
     private void btnDocFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDocFileMouseClicked
-        String password = JOptionPane.showInputDialog("Vui lòng nhập mật khẩu");
-        if (password.equals("admin01")) {
+
             int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn đọc file không?", " ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (kiemTra == JOptionPane.YES_OPTION) {
                 try {
@@ -816,9 +1003,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
                 return;
             }
 
-        } else {
-            JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập!");
-        }
+        
 
     }//GEN-LAST:event_btnDocFileMouseClicked
 
@@ -855,7 +1040,7 @@ public class QuanLyDiemView extends javax.swing.JFrame {
 
         // Hiển thị ảnh trên JButton
         btImage.setIcon(newIcon);
-        btImage.setText("");
+        btImage.setText(imagePath);
 
     }
     private void btDauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDauActionPerformed
@@ -918,6 +1103,10 @@ public class QuanLyDiemView extends javax.swing.JFrame {
     private void btnDocFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocFileActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDocFileActionPerformed
+
+    private void btnGhiFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGhiFileActionPerformed
 
     /**
      * @param args the command line arguments
