@@ -4,6 +4,9 @@
  */
 package agile;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -24,9 +27,11 @@ public class QLSV {
         return listSinhVien;
     }
     
-    Boolean AddNew(SinhVien sv){
-//        SinhVien sv =  new SinhVien();
+    Boolean AddNew(SinhVien sv) {
+//      SinhVien sv =  new SinhVien();
         listSinhVien.add(sv);
+        // Lưu danh sách vào file
+        //saveToFile();
         return true;
     }
     
@@ -43,10 +48,25 @@ public class QLSV {
     ArrayList<SinhVien> timKiem(String maTim){
         ArrayList<SinhVien> ketQuaTim = new ArrayList<>();
         for (SinhVien sinhVien : listSinhVien) {
-            if(sinhVien.getMaHS().equals(maTim)){
+            if (sinhVien.getMaHS().equals(maTim)) {
                 ketQuaTim.add(sinhVien);
             }
         }
+        System.out.println("Kết quả tìm kiếm: " + ketQuaTim);
         return ketQuaTim;
     }
+    
+    
+    // Phương thức saveToFile trong lớp QLSV
+    private void saveToFile() {
+    try {
+        FileOutputStream fos = new FileOutputStream("agile.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(listSinhVien);
+        oos.close();
+        fos.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 }
