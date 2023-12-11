@@ -10,6 +10,7 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.security.auth.login.LoginContext;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
@@ -26,9 +27,10 @@ public class login extends javax.swing.JFrame {
      */
     QuanLyDiemView qldv = new QuanLyDiemView();
     QuanLyDiemView1 qldv1 =  new QuanLyDiemView1();
+            
     public login() {
         initComponents();
-
+        
     }
 
     /**
@@ -244,10 +246,13 @@ public class login extends javax.swing.JFrame {
 
             if (storedPassword.equals(password)) {
                 if ("Admin".equals(userRole)) {
+                    JOptionPane.showMessageDialog(this, "Đã đăng nhật thàng công với tư cách admin", "Kết nối với trang dành cho Admin", JOptionPane.INFORMATION_MESSAGE);
                     qldv.setVisible(true);
+                    qldv.setLocationRelativeTo(this);
                     dispose();
                 } else if ("HS".equals(userRole)) {
                     qldv1.setVisible(true);
+                    qldv1.setLocationRelativeTo(this);
                     dispose();
                 } else {
                     
@@ -281,32 +286,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordFocusLost
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
-//        String username = txtUser.getText();
-//        String password = txtPassword.getText();
-//        // Thêm Action vào InputMap và ActionMap của JTextField
-//        txtPassword.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "doEnterAction");
-//        
-//        // Tạo một Map để lưu trữ tên và mật khẩu
-//        Map<String,String> taikhoan = new HashMap<>();
-//        taikhoan.put("giaovien", "123");
-//        taikhoan.put("giangvien", "123");
-//        taikhoan.put("admin", "123");
-//        
-//        //containsKey: kiểm tra xem map có chứa key không
-//        if (taikhoan.containsKey(username)) {
-//            // Tìm thấy tên người dùng trong Map
-//            String layPass = taikhoan.get(username);
-//            if (layPass.equals(password)) {
-//                System.out.println("Done");
-//                
-//            }
-//            else{
-//                JOptionPane.showMessageDialog(this, "Sai mật khẩu", "Bảo mật", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }else{
-//            JOptionPane.showMessageDialog(this, "Tài khoản không tồn tại", "Bảo mật", JOptionPane.ERROR_MESSAGE);
-//        }
+
 
     }//GEN-LAST:event_txtPasswordActionPerformed
 
@@ -334,7 +314,11 @@ public class login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new login().setVisible(true);
+//                new login().setVisible(true);
+//                new login().setLocationRelativeTo(null);
+                login login = new login();
+                login.setLocationRelativeTo(null);
+                login.setVisible(true);
             }
         });
     }

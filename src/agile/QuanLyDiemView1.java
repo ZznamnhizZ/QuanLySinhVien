@@ -101,6 +101,13 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         ArrayList<SinhVien> list = qlsv.getListSinhVien();
         lblDong.setText(LayThongTinTable(0, list.size()));
         loadData(list);
+        btImage.setEnabled(false);
+        txtTen.setEditable(false);
+        txtQueQuan.setEditable(false);
+        cboNamSinh.setEditable(false);
+        txtDiemAnh.setEditable(false);
+        txtDiemVan.setEditable(false);
+        txtDiemToan.setEditable(false);
     }
 
     public String LayThongTinTable(int viTriBanDau, int TongSoBanGhi) {
@@ -171,8 +178,6 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         txtDiemAnh = new javax.swing.JTextField();
         txtTen = new javax.swing.JTextField();
         txtQueQuan = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblSinhVien = new javax.swing.JTable();
         btDau = new javax.swing.JButton();
         btPrev = new javax.swing.JButton();
         btNext = new javax.swing.JButton();
@@ -184,6 +189,13 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         btnTimKiem = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         kGradientPanel2 = new keeptoo.KGradientPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSinhVien = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menuBackToLogin = new javax.swing.JMenuItem();
+        menuExit = new javax.swing.JMenuItem();
+        menuLoadAgain = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -277,26 +289,6 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         getContentPane().add(txtTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 126, -1));
         getContentPane().add(txtQueQuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 126, -1));
 
-        tblSinhVien.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "STT", "Mã hs", "Tên hs", "Giới tính", "Năm sinh", "Quê quán", "Điểm toán", "Điểm anh", "Điểm văn", "Avg", "Hình ảnh"
-            }
-        ));
-        tblSinhVien.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblSinhVienMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblSinhVien);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 690, 270));
-
         btDau.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btDau.setText("|<");
         btDau.addActionListener(new java.awt.event.ActionListener() {
@@ -341,12 +333,12 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         lblDong.setText("1 or 10");
         getContentPane().add(lblDong, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, -1, -1));
 
-        kGradientPanel1.setkEndColor(new java.awt.Color(204, 255, 204));
-        kGradientPanel1.setkStartColor(new java.awt.Color(0, 153, 51));
+        kGradientPanel1.setkEndColor(new java.awt.Color(0, 102, 51));
+        kGradientPanel1.setkStartColor(new java.awt.Color(0, 140, 46));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Trang tra cứu điểm");
+        jLabel1.setText(" Trang tra cứu điểm");
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -355,17 +347,17 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(464, Short.MAX_VALUE))
+                .addContainerGap(514, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        getContentPane().add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, 0, 720, 40));
+        getContentPane().add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, 0, 770, 50));
 
         btnTimKiem.setBackground(new java.awt.Color(249, 249, 249));
         btnTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -395,20 +387,84 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 130, 109, -1));
 
         kGradientPanel2.setkEndColor(new java.awt.Color(255, 255, 255));
-        kGradientPanel2.setkStartColor(javax.swing.UIManager.getDefaults().getColor("Actions.Green"));
+        kGradientPanel2.setkStartColor(new java.awt.Color(109, 165, 120));
+
+        tblSinhVien.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        tblSinhVien.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "STT", "Mã hs", "Tên hs", "Giới tính", "Năm sinh", "Quê quán", "Điểm toán", "Điểm anh", "Điểm văn", "Avg", "Hình ảnh"
+            }
+        ));
+        tblSinhVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSinhVienMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblSinhVien);
+        if (tblSinhVien.getColumnModel().getColumnCount() > 0) {
+            tblSinhVien.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tblSinhVien.getColumnModel().getColumn(1).setPreferredWidth(45);
+            tblSinhVien.getColumnModel().getColumn(2).setPreferredWidth(130);
+        }
 
         javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
         kGradientPanel2.setLayout(kGradientPanel2Layout);
         kGradientPanel2Layout.setHorizontalGroup(
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 710, Short.MAX_VALUE)
+            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+                .addContainerGap())
         );
         kGradientPanel2Layout.setVerticalGroup(
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                .addGap(313, 313, 313)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        getContentPane().add(kGradientPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 710, 580));
+        getContentPane().add(kGradientPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 760, 650));
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-file-17 (2).png"))); // NOI18N
+        jMenu1.setText(" File");
+
+        menuBackToLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-login-23.png"))); // NOI18N
+        menuBackToLogin.setText("Về trang đăng nhập");
+        menuBackToLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBackToLoginActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuBackToLogin);
+
+        menuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
+        menuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-exit-23 (1).png"))); // NOI18N
+        menuExit.setText("Thoát");
+        menuExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuExit);
+
+        jMenuBar1.add(jMenu1);
+
+        menuLoadAgain.setText("Tải lại trang");
+        menuLoadAgain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuLoadAgainMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menuLoadAgain);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -459,6 +515,9 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         } else {
             rdNu.setSelected(true);
         }
+        
+        ArrayList<SinhVien> list = qlsv.getListSinhVien();
+        lblDong.setText(LayThongTinTable(i, list.size()));
     }//GEN-LAST:event_tblSinhVienMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -604,6 +663,7 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
 
     private void btnTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseClicked
         // TODO add your handling code here:
+        lblDong.setText("");
         int i = tblSinhVien.getSelectedRow();
         String maCanTim = txtMa.getText();
         ArrayList<SinhVien> ketQuaTim = qlsv.timKiem(maCanTim);
@@ -634,7 +694,7 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
                 txtDiemVan.setText(diemVan.toString());
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Không tìm thấy nhân viên");
+            JOptionPane.showMessageDialog(this, "Học sinh " + maCanTim + " không tồn tại trong danh sách" ,"Thông báo", HEIGHT);
         }
         
         
@@ -644,9 +704,13 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        login login =  new login();
-        login.setVisible(true);
-        dispose();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn ra màn hình đăng nhập không", "Quay lại trang đăng nhập", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            login login = new login();
+            login.setVisible(true);
+            login.setLocationRelativeTo(null);
+            dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -665,9 +729,51 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         String ma = txtMa.getText();
         if (ma.equals("")) {
+            txtTen.setText("");
+            txtQueQuan.setText("");
+            txtDiemAnh.setText("");
+            txtDiemVan.setText("");
+            txtDiemToan.setText("");
+            btImage.setText("");
+            cboNamSinh.setSelectedIndex(-1);
+            btImage.setIcon(null);
+            buttonGroup1.clearSelection();
             loadData(qlsv.getListSinhVien());
         }
     }//GEN-LAST:event_txtMaKeyReleased
+
+    private void menuBackToLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBackToLoginActionPerformed
+        // TODO add your handling code here:
+        int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn ra màn hình đăng nhập không", "Quay lại trang đăng nhập", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            login login = new login();
+            login.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_menuBackToLoginActionPerformed
+
+    private void menuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExitActionPerformed
+        // TODO add your handling code here:
+        int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn thoát không", "Thoát chương trình", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            dispose();
+        }
+    }//GEN-LAST:event_menuExitActionPerformed
+
+    private void menuLoadAgainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLoadAgainMouseClicked
+        // TODO add your handling code here:
+        ArrayList<SinhVien> list = qlsv.getListSinhVien();
+        loadData(list);
+        try {
+                    // TODO add your handling code here:
+                    list.clear();
+                    docFile();
+                } catch (IOException ex) {
+                    Logger.getLogger(QuanLyDiemView.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(QuanLyDiemView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+    }//GEN-LAST:event_menuLoadAgainMouseClicked
 
     /**
      * @param args the command line arguments
@@ -715,11 +821,16 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
     private javax.swing.JLabel lblDong;
+    private javax.swing.JMenuItem menuBackToLogin;
+    private javax.swing.JMenuItem menuExit;
+    private javax.swing.JMenu menuLoadAgain;
     private javax.swing.JRadioButton rdNam;
     private javax.swing.JRadioButton rdNu;
     private javax.swing.JTable tblSinhVien;
