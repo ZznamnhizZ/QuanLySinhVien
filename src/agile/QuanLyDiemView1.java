@@ -28,6 +28,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 
 //// Bo cong góc -----------------------------------------------------------------
@@ -186,6 +187,7 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         lblDong = new javax.swing.JLabel();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
+        probar = new javax.swing.JProgressBar();
         btnTimKiem = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         kGradientPanel2 = new keeptoo.KGradientPanel();
@@ -340,6 +342,8 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText(" Trang tra cứu điểm");
 
+        probar.setBackground(new java.awt.Color(0, 102, 51));
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -347,14 +351,20 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(514, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 402, Short.MAX_VALUE)
+                .addComponent(probar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(probar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         getContentPane().add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, 0, 770, 50));
@@ -748,6 +758,7 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         if (check == JOptionPane.YES_OPTION) {
             login login = new login();
             login.setVisible(true);
+            login.setLocationRelativeTo(null);
             dispose();
         }
     }//GEN-LAST:event_menuBackToLoginActionPerformed
@@ -760,8 +771,13 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuExitActionPerformed
 
+    
+    
+    int value =0;
+    Timer timer;
     private void menuLoadAgainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLoadAgainMouseClicked
         // TODO add your handling code here:
+        
         ArrayList<SinhVien> list = qlsv.getListSinhVien();
         loadData(list);
         try {
@@ -773,6 +789,20 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(QuanLyDiemView.class.getName()).log(Level.SEVERE, null, ex);
                 }
+        
+        value = 0;
+        timer = new Timer(1, e -> {
+            value += 2;
+            if (value <= 100) {
+                probar.setValue(value);
+            } else if (value >= 100){
+                 probar.setValue(0);
+                 timer.stop();
+                 timer.start();
+                 
+            }
+        });
+        timer.start();
     }//GEN-LAST:event_menuLoadAgainMouseClicked
 
     /**
@@ -831,6 +861,7 @@ public class QuanLyDiemView1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuBackToLogin;
     private javax.swing.JMenuItem menuExit;
     private javax.swing.JMenu menuLoadAgain;
+    private javax.swing.JProgressBar probar;
     private javax.swing.JRadioButton rdNam;
     private javax.swing.JRadioButton rdNu;
     private javax.swing.JTable tblSinhVien;

@@ -58,7 +58,7 @@ public class login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Phần mềm quản lý dành cho điểm dành cho giáo viên");
+        setTitle("Phần mềm quản lý điểm thi THPT ");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -246,11 +246,12 @@ public class login extends javax.swing.JFrame {
 
             if (storedPassword.equals(password)) {
                 if ("Admin".equals(userRole)) {
-                    JOptionPane.showMessageDialog(this, "Đã đăng nhật thàng công với tư cách admin", "Kết nối với trang dành cho Admin", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Đã đăng nhật thàng công với tư cách admin", "Kết nối với trang dành cho admin", JOptionPane.INFORMATION_MESSAGE);
                     qldv.setVisible(true);
                     qldv.setLocationRelativeTo(this);
                     dispose();
                 } else if ("HS".equals(userRole)) {
+                    JOptionPane.showMessageDialog(this, "Đã đăng nhật thàng công với vai trò học sinh", "Kết nối với trang cho học sinh", JOptionPane.INFORMATION_MESSAGE);
                     qldv1.setVisible(true);
                     qldv1.setLocationRelativeTo(this);
                     dispose();
